@@ -1,0 +1,57 @@
+<?php
+
+use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PropertiController;
+use App\Http\Controllers\TipePropertiController;
+use App\Models\Properti;
+use Illuminate\Support\Facades\Route;
+use RealRashid\SweetAlert\Facades\Alert;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/', function () {
+//     return view('pages.home');
+// })->name('home');
+Route::get('/', [PageController::class, 'index']);
+
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::delete('dashboard/properti/gallery/{gallery}', [PropertiController::class, 'deletegallery'])->name('deletegallery');
+
+Route::get('/dashboard', function () {
+    return view('dashboard.home');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::resource('dashboard/lokasi', LokasiController::class)->only(['index', 'store', 'destroy', 'edit', 'update', 'show'])->middleware(['auth', 'verified']);
+
+Route::resource('dashboard/tipe-properti', TipePropertiController::class)->only(['index', 'store', 'destroy', 'edit', 'update', 'show'])->middleware(['auth', 'verified']);
+
+Route::resource('dashboard/properti', PropertiController::class)->only(['index', 'create', 'store', 'destroy', 'edit', 'update', 'show'])->middleware(['auth', 'verified']);
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+require __DIR__ . '/auth.php';
