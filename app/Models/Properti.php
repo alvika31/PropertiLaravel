@@ -25,4 +25,8 @@ class Properti extends Model
     {
         return $this->hasMany(GalleryProperti::class, 'properti_id');
     }
+    public function tipeunit()
+    {
+        return $this->hasMany(TipeUnit::class, 'property_id');
+    }
 }

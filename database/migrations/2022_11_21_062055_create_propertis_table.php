@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('nama_developer');
             $table->string('cicilan');
             $table->string('featured_image');
-            $table->string('deskripsi_properti');
-            $table->string('fasilitas');
-            $table->string('deskripsi_lokasi');
+            $table->longText('deskripsi_properti');
+            $table->longText('fasilitas');
+            $table->longText('deskripsi_lokasi');
             $table->timestamps();
         });
     }

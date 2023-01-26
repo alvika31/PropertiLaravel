@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Lokasi;
+use App\Models\Properti;
 use App\Models\TipeProperti;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -33,5 +34,9 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('tipe', TipeProperti::all());
             }
         );
+
+        Properti::deleting(function ($properti) {
+            $properti->gallery()->delete();
+        });
     }
 }

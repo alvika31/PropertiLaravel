@@ -1,11 +1,7 @@
 <x-dashboard-layout>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     @include('sweetalert::alert')
     <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
-
-    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
-    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
     <div class="">
         <form action="{{ route('properti.update', $model->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -63,25 +59,111 @@
             <input type="submit" value="Simpan Properti"
                 class="px-8 mt-5 rounded-md py-2 bg-green-500 text-white font-medium">
         </form>
+        @if (!$model->tipeunit->isEmpty())
+            <h1 class="text-2xl font-medium mt-4 mb-2">Tipe Unit:</h1>
+        @endif
+
+        <div class="grid grid-cols-4 gap-4">
+            @foreach ($model->tipeunit as $tipeunit)
+                <div class="w-full bg-white drop-shadow rounded-md">
+                    <img src="{{ asset('storage/' . $tipeunit->image_tipe) }}" alt="" srcset="">
+                    <div class="p-3">
+                        <h1 class="text-lg font-medium text-gray-600">{{ $tipeunit->nama_tipe }}</h1>
+                        <p class="text-sm">Harga Mulai:</p>
+                        <h1 class="text-xl font-medium text-gray-600">Rp. {{ $tipeunit->harga }}</h1>
+                        <div class="flex justify-items-center gap-4">
+                            <div class="flex items-center gap-1">
+                                <i class="ti ti-bed"></i>{{ $tipeunit->kamar_tidur }}KT
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="ti ti-home-up"></i>LT:{{ $tipeunit->luas_tanah }}
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_tanah }}
+                            </div>
+                        </div>
+                    </div>
+                    <form id="formLokasi" method="post" action="{{ route('tipe-unit.destroy', $tipeunit->id) }}">
+                        @csrf
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button type="submit"
+                            class="show_confirm2 bg-red-500 text-white p-2 font-medium rounded-md absolute top-0"
+                            id="delete-lokasi" data-nama="{{ $tipeunit->nama_tipe }}"><i class="ti ti-trash"></i>
+                        </button>
+                    </form>
+                    <a href="{{ route('tipe-unit.edit', $tipeunit->id) }}"
+                        class="bg-green-500 text-white p-2 font-medium rounded-md absolute top-0 left-10"><i
+                            class="ti ti-edit"></i>
+                    </a>
+                </div>
+            @endforeach
+        </div>
         <div class="grid grid-cols-2">
             @foreach ($model->gallery as $gallerys)
                 <div class="">
                     <form action="{{ route('deletegallery', $gallerys->id) }}" method="post">
                         @csrf
                         @method('delete')
-                        <button type="submit">
+                        <button class="show_confirm" type="submit">
                             <div class="p-3 bg-red-500 text-white rounded-md absolute z-20">
                                 <i class="ti ti-trash-x"></i>
                             </div>
                         </button>
                     </form>
-
                     <img src="{{ asset($gallerys->url) }}" class="relativ w-full" alt="">
-
                 </div>
             @endforeach
         </div>
     </div>
+    <script>
+        $('.show_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Apakah anda yakin ingin menghapus",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        });
+
+        $('.show_confirm2').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            Swal.fire({
+                title: 'Apakah Anda Yakin?',
+                text: "Apakah anda yakin ingin menghapus",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        });
+    </script>
     <script type="text/javascript">
         CKEDITOR.replace('deskripsi_properti');
         CKEDITOR.replace('fasilitas');

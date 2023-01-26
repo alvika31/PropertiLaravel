@@ -10,6 +10,7 @@ use Illuminate\Support\File;
 use App\Models\GalleryProperti;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\TipeUnit;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,7 +23,7 @@ class PropertiController extends Controller
      */
     public function index()
     {
-        $model = Properti::all();
+        $model = Properti::withCount('tipeunit')->get();
         return view('dashboard.listproperti', compact('model'));
     }
 
@@ -162,40 +163,8 @@ class PropertiController extends Controller
                 $image->save();
             }
         }
-
-
-        // $image->update($gallerysData);
-
-
-
         $properti->update($postData);
         return redirect()->route('properti.index')->with('success', 'Properti Berhasil diedit');
-        // $model = Properti::find($properti);
-
-        // if ($request->hasFile('featured_iamge') == null) {
-        //     $model->nama_properti = $request->nama_properti;
-        //     $model->nama_developer = $request->nama_developer;
-        //     $model->cicilan = $request->cicilan;
-        //     $model->lokasi_id = $request->lokasi_id;
-        //     $model->tipe_properti_id = $request->tipe_properti_id;
-        //     $model->deskripsi_properti = $request->deskripsi_properti;
-        //     $model->fasilitas = $request->fasilitas;
-        //     $model->deskripsi_lokasi = $request->deskripsi_lokasi;
-        //     $model->update();
-        // } else {
-
-        //     $image_path = $request->file('featured_image')->store('featured_image');
-        //     $model->nama_properti = $request->nama_properti;
-        //     $model->nama_developer = $request->nama_developer;
-        //     $model->cicilan = $request->cicilan;
-        //     $model->lokasi_id = $request->lokasi_id;
-        //     $model->tipe_properti_id = $request->tipe_properti_id;
-        //     $model->deskripsi_properti = $request->deskripsi_properti;
-        //     $model->featured_image = $image_path;
-        //     $model->fasilitas = $request->fasilitas;
-        //     $model->deskripsi_lokasi = $request->deskripsi_lokasi;
-        //     $model->update();
-        // }
     }
 
     /**
@@ -206,7 +175,10 @@ class PropertiController extends Controller
      */
     public function destroy(Properti $properti)
     {
-        //
+        $model = Properti::find($properti);
+
+        $model->each->delete();
+        return redirect()->back();
     }
     public function deletegallery($id)
     {

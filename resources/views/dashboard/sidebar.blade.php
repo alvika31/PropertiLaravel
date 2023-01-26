@@ -12,7 +12,7 @@
         </div>
     </div>
     <aside :class="{ 'block': open, 'hidden': !open }" x-transition.opacity x-transition:enter.duration.500ms
-        class="fixed w-1/2 sm:w-1/5 bg-white border-r-2 border-gray-200 px-8 py-10 hidden sm:block">
+        class="fixed w-1/2 sm:w-1/5 lg:w-60 bg-white border-r-2 border-gray-200 px-8 py-10 hidden sm:block">
         <h1 class="text-center text-2xl font-bold text-gray-800">Propertyku</h1>
         <div class="flex my-20 flex-col">
             <a href="{{ route('dashboard') }}">

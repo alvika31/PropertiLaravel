@@ -5,6 +5,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertiController;
 use App\Http\Controllers\TipePropertiController;
+use App\Http\Controllers\TipeUnitController;
 use App\Models\Properti;
 use Illuminate\Support\Facades\Route;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -35,6 +36,7 @@ Route::get('/', [PageController::class, 'index']);
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::delete('dashboard/properti/gallery/{gallery}', [PropertiController::class, 'deletegallery'])->name('deletegallery');
+Route::get('dashboard/add-tipeunit/{tipeunit}', [TipeUnitController::class, 'addtipeunit'])->name('addtipeunit');
 
 Route::get('/dashboard', function () {
     return view('dashboard.home');
@@ -45,6 +47,10 @@ Route::resource('dashboard/lokasi', LokasiController::class)->only(['index', 'st
 Route::resource('dashboard/tipe-properti', TipePropertiController::class)->only(['index', 'store', 'destroy', 'edit', 'update', 'show'])->middleware(['auth', 'verified']);
 
 Route::resource('dashboard/properti', PropertiController::class)->only(['index', 'create', 'store', 'destroy', 'edit', 'update', 'show'])->middleware(['auth', 'verified']);
+
+Route::resource('dashboard/tipe-unit', TipeUnitController::class)->only(['index', 'create', 'store', 'destroy', 'edit', 'update', 'show'])->middleware(['auth', 'verified']);
+
+
 
 
 

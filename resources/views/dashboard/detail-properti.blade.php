@@ -36,12 +36,38 @@
             {!! html_entity_decode($model->deskripsi_lokasi) !!}
         </div>
     </div>
+    @if (!$model->tipeunit->isEmpty())
+        <h1 class="text-2xl font-medium mt-4 mb-2">Tipe Unit:</h1>
+    @endif
+
+    <div class="grid grid-cols-4 gap-4">
+        @foreach ($model->tipeunit as $tipeunit)
+            <div class="w-full bg-white drop-shadow rounded-md">
+                <img src="{{ asset('storage/' . $tipeunit->image_tipe) }}" alt="" srcset="">
+                <div class="p-3">
+                    <h1 class="text-lg font-medium text-gray-600">{{ $tipeunit->nama_tipe }}</h1>
+                    <p class="text-sm">Harga Mulai:</p>
+                    <h1 class="text-xl font-medium text-gray-600">Rp. {{ $tipeunit->harga }}</h1>
+                    <div class="flex justify-items-center gap-4">
+                        <div class="flex items-center gap-1">
+                            <i class="ti ti-bed"></i>{{ $tipeunit->kamar_tidur }}KT
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="ti ti-home-up"></i>LT:{{ $tipeunit->luas_tanah }}
+                        </div>
+                        <div class="flex items-center gap-1">
+                            <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_tanah }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
     <h1 class="text-2xl font-medium mt-4 mb-2">Gallery:</h1>
     <div class="">
         <div class="owl-carousel owl-theme">
             @foreach ($model->gallery as $gambar)
                 <div class="item">
-
                     <img class="item" src="{{ asset($gambar->url) }}" alt="">
                 </div>
             @endforeach
