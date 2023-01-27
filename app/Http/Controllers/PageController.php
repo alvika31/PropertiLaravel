@@ -16,8 +16,9 @@ class PageController extends Controller
      */
     public function index()
     {
-        $model = Lokasi::all();
-        return view('pages.home', compact('model'));
+        $lokasi = Lokasi::all();
+        $properti = Properti::all();
+        return view('pages.home', compact('lokasi', 'properti'));
     }
 
     /**

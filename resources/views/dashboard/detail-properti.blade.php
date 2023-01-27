@@ -47,16 +47,16 @@
                 <div class="p-3">
                     <h1 class="text-lg font-medium text-gray-600">{{ $tipeunit->nama_tipe }}</h1>
                     <p class="text-sm">Harga Mulai:</p>
-                    <h1 class="text-xl font-medium text-gray-600">Rp. {{ $tipeunit->harga }}</h1>
+                    <h1 class="text-xl font-medium text-gray-600">Rp. {{ $tipeunit->harga }} M</h1>
                     <div class="flex justify-items-center gap-4">
                         <div class="flex items-center gap-1">
                             <i class="ti ti-bed"></i>{{ $tipeunit->kamar_tidur }}KT
                         </div>
                         <div class="flex items-center gap-1">
-                            <i class="ti ti-home-up"></i>LT:{{ $tipeunit->luas_tanah }}
+                            <i class="ti ti-home-up"></i>LT:{{ $tipeunit->luas_tanah }}m<sup>2</sup>
                         </div>
                         <div class="flex items-center gap-1">
-                            <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_tanah }}
+                            <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_tanah }}m<sup>2</sup>
                         </div>
                     </div>
                 </div>

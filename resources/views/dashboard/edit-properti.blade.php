@@ -76,10 +76,10 @@
                                 <i class="ti ti-bed"></i>{{ $tipeunit->kamar_tidur }}KT
                             </div>
                             <div class="flex items-center gap-1">
-                                <i class="ti ti-home-up"></i>LT:{{ $tipeunit->luas_tanah }}
+                                <i class="ti ti-home-up"></i>LT:{{ $tipeunit->luas_tanah }}m<sup>2</sup>
                             </div>
                             <div class="flex items-center gap-1">
-                                <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_tanah }}
+                                <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_tanah }}m<sup>2</sup>
                             </div>
                         </div>
                     </div>

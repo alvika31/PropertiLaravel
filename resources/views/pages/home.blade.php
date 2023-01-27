@@ -1,6 +1,8 @@
-<x-app-page-layout :$model>
-    <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
-    <script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
+<x-app-page-layout>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <div class="w-full bg-fixed bg-center h-48 sm:h-96 flex bg-no-repeat bg-cover"
         style="background-image: url('{{ asset('img/hero.jpg') }}')">
 
@@ -151,97 +153,51 @@
     </div>
     <div class="max-w-6xl p-6 sm:p-0 mx-auto mt-10">
         <h1 class="text-2xl font-bold">List Properti</h1>
-        <div class="embla flex">
-            <div class="flex mt-5 space-x-4">
-                <div class="drop-shadow-md bg-white rounded">
-                    <img class="w-full"
-                        src="https://d3lfgix2a8jnun.cloudfront.net/listing-files/4/the-loop-bsd637c342cea3fd_thumb-637c342d6542c.png"
-                        alt="">
-                    <div class="p-3">
-                        <h1 class="text-xl font-bold">Start Rp 2.1 Milyar</h1>
-                        <h2 class="text-base font-bold">Ruko The Loop BSD City</h2>
-                        <p> BSD City, Tangerang</p>
-                        <div class="flex mt-5 justify-start text-gray-500  space-x-5">
-                            <div class="">
-                                <i class="ti ti-bed"></i> 4
-                            </div>
-                            <div class="">
-                                LT 90-110 m<sup>2</sup>
-                            </div>
-                            <div class="">
-                                LT 90-110 m<sup>2</sup>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="drop-shadow-md bg-white rounded">
-                    <img class="w-full"
-                        src="https://d3lfgix2a8jnun.cloudfront.net/listing-files/4/the-loop-bsd637c342cea3fd_thumb-637c342d6542c.png"
-                        alt="">
-                    <div class="p-3">
-                        <h1 class="text-xl font-bold">Start Rp 2.1 Milyar</h1>
-                        <h2 class="text-base font-bold">Ruko The Loop BSD City</h2>
-                        <p> BSD City, Tangerang</p>
-                        <div class="flex flex-col sm:flex-row mt-5 justify-start text-gray-500 space-x-1 sm:space-x-5">
-                            <div class="">
-                                <i class="ti ti-bed"></i> 4
-                            </div>
-                            <div class="">
-                                LT 90-110 m<sup>2</sup>
-                            </div>
-                            <div class="">
-                                LT 90-110 m<sup>2</sup>
+        <div class="mt-10">
+            <div class="owl-carousel owl-theme max-w-6xl p-6 sm:p-0">
+                @foreach ($properti as $properti)
+                    <div class="item drop-shadow-md bg-white rounded w-full">
+                        <img class="w-full" src="{{ asset('storage/' . $properti->featured_image) }}" alt=""
+                            width="10px">
+                        <div class="p-3">
+                            <h1 class="text-xl font-bold">{{ $properti->cicilan }}</h1>
+                            <h2 class="text-base font-bold">{{ $properti->nama_properti }}</h2>
+
+                            <p> {{ $properti->lokasis->nama_lokasi }}</p>
+                            <div class="flex mt-5 justify-start text-gray-500  space-x-5">
+                                <div class="">
+                                    <i class="ti ti-bed"></i>
+                                    @foreach ($properti->tipeunit as $tipeunit)
+                                        {{ $tipeunit->kamar_tidur }}-
+                                    @endforeach
+                                </div>
+
+                                <div class="">
+                                    LT 90-110 m<sup>2</sup>
+                                </div>
+                                <div class="">
+                                    LT 90-110 m<sup>2</sup>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="drop-shadow-md bg-white rounded">
-                    <img class="w-full"
-                        src="https://d3lfgix2a8jnun.cloudfront.net/listing-files/4/the-loop-bsd637c342cea3fd_thumb-637c342d6542c.png"
-                        alt="">
-                    <div class="p-3">
-                        <h1 class="text-xl font-bold">Start Rp 2.1 Milyar</h1>
-                        <h2 class="text-base font-bold">Ruko The Loop BSD City</h2>
-                        <p> BSD City, Tangerang</p>
-                        <div class="flex mt-5 justify-start text-gray-500  space-x-5">
-                            <div class="">
-                                <i class="ti ti-bed"></i> 4
-                            </div>
-                            <div class="">
-                                LT 90-110 m<sup>2</sup>
-                            </div>
-                            <div class="">
-                                LT 90-110 m<sup>2</sup>
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
+                <div class="owl-nav">
+
+
                 </div>
             </div>
         </div>
-
     </div>
-    <button class="embla__button embla__button--prev" type="button">
-        <svg class="embla__button__svg" viewBox="137.718 -1.001 366.563 643.999">
-            <path
-                d="M428.36 12.5c16.67-16.67 43.76-16.67 60.42 0 16.67 16.67 16.67 43.76 0 60.42L241.7 320c148.25 148.24 230.61 230.6 247.08 247.08 16.67 16.66 16.67 43.75 0 60.42-16.67 16.66-43.76 16.67-60.42 0-27.72-27.71-249.45-249.37-277.16-277.08a42.308 42.308 0 0 1-12.48-30.34c0-11.1 4.1-22.05 12.48-30.42C206.63 234.23 400.64 40.21 428.36 12.5z">
-            </path>
-        </svg>
-    </button>
-    <button class="embla__button embla__button--next" type="button">
-        <svg class="embla__button__svg" viewBox="0 0 238.003 238.003">
-            <path
-                d="M181.776 107.719L78.705 4.648c-6.198-6.198-16.273-6.198-22.47 0s-6.198 16.273 0 22.47l91.883 91.883-91.883 91.883c-6.198 6.198-6.198 16.273 0 22.47s16.273 6.198 22.47 0l103.071-103.039a15.741 15.741 0 0 0 4.64-11.283c0-4.13-1.526-8.199-4.64-11.313z">
-            </path>
-        </svg>
-    </button>
     </div>
-    <script type="text/javascript">
-        var emblaNode = document.querySelector('.embla')
-        var options = {
-            loop: false
-        }
-        var plugins = [EmblaCarouselAutoplay()] // Plugins
-
-        var embla = EmblaCarousel(emblaNode, options, plugins)
+    <script>
+        $('.owl-carousel').owlCarousel({
+            items: 2,
+            loop: true,
+            nav: true,
+            autoWidth: false,
+            margin: 30,
+            nav: true,
+        })
     </script>
 </x-app-page-layout>

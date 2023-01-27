@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
 
         Properti::deleting(function ($properti) {
             $properti->gallery()->delete();
+            $properti->tipeunit()->delete();
         });
     }
 }

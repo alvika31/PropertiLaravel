@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <p class="font-medium mb-4">Harga:</p>
-                    <input type="text" class="w-full rounded-md border-gray-300" name="harga" id="">
+                    <input type="number" class="w-full rounded-md border-gray-300" name="harga" id="">
                 </div>
                 <div>
                     <p class="font-medium mb-4">Kamar Tidur:</p>
