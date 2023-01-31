@@ -1,4 +1,31 @@
 <x-app-page-layout>
+    <style>
+        .owl-prev {
+            width: 30px;
+            align-content: center;
+            align-items: center;
+            align-self: center;
+            background-color: blue !important;
+            color: white !important;
+            font-size: 30px !important;
+            position: absolute;
+            left: -20px;
+            top: 120px;
+        }
+
+        .owl-next {
+            width: 30px;
+            align-content: center;
+            align-items: center;
+            align-self: center;
+            background-color: blue !important;
+            color: white !important;
+            font-size: 30px !important;
+            position: absolute;
+            right: -20px;
+            top: 120px;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -151,14 +178,14 @@
 
         </div>
     </div>
-    <div class="max-w-6xl p-6 sm:p-0 mx-auto mt-10">
+    <div class="max-w-6xl  p-6 sm:p-0 mx-auto mt-10">
         <h1 class="text-2xl font-bold">List Properti</h1>
         <div class="mt-10">
-            <div class="owl-carousel owl-theme max-w-6xl p-6 sm:p-0">
+            <div class="owl-carousel owl-theme w-full h-screen  sm:p-0">
                 @foreach ($properti as $properti)
-                    <div class="item drop-shadow-md bg-white rounded w-full">
+                    <div class="item drop-shadow-md bg-white mx-1 my-1 rounded w-full">
                         <img class="w-full" src="{{ asset('storage/' . $properti->featured_image) }}" alt=""
-                            width="10px">
+                            width="10px" height="10px">
                         <div class="p-3">
                             <h1 class="text-xl font-bold">{{ $properti->cicilan }}</h1>
                             <h2 class="text-base font-bold">{{ $properti->nama_properti }}</h2>
@@ -167,8 +194,8 @@
                             <div class="flex mt-5 justify-start text-gray-500  space-x-5">
                                 <div class="">
                                     <i class="ti ti-bed"></i>
-                                    @foreach ($properti->tipeunit as $tipeunit)
-                                        {{ $tipeunit->kamar_tidur }}-
+                                    @foreach (explode(', ', $properti->tipeunit) as $tipeunit)
+                                        {{ $tipeunit['kamar_tidur'] }}
                                     @endforeach
                                 </div>
 
@@ -192,11 +219,11 @@
     </div>
     <script>
         $('.owl-carousel').owlCarousel({
-            items: 2,
-            loop: true,
+            items: 3,
+            loop: false,
             nav: true,
             autoWidth: false,
-            margin: 30,
+            margin: 20,
             nav: true,
         })
     </script>
