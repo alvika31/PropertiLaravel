@@ -47,7 +47,7 @@
                 <div class="p-3">
                     <h1 class="text-lg font-medium text-gray-600">{{ $tipeunit->nama_tipe }}</h1>
                     <p class="text-sm">Harga Mulai:</p>
-                    <h1 class="text-xl font-medium text-gray-600">Rp. {{ $tipeunit->harga }} M</h1>
+                    <h1 class="text-xl font-medium text-gray-600" id="harga">Rp. {{ $tipeunit->harga }}</h1>
                     <div class="flex justify-items-center gap-4">
                         <div class="flex items-center gap-1">
                             <i class="ti ti-bed"></i>{{ $tipeunit->kamar_tidur }}KT
@@ -84,7 +84,7 @@
             loop: true,
             autoWidth: true,
             margin: 10,
-        })
+        });
     </script>
 
 

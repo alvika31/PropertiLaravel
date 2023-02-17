@@ -5,7 +5,8 @@
                 <h1 class="text-2xl font-bold">Propertiku</h1>
             </div>
             <div class="space-x-10 hidden sm:flex items-center">
-                <x-nav-page-link class="text-black font-medium text-base" :active="request()->routeIs('home')">Home</x-nav-page-link>
+                <x-nav-page-link class="text-black font-medium text-base" href="{{ url('/') }}" :active="request()->routeIs('page.index')">
+                    Home</x-nav-page-link>
                 <x-dropdown>
                     <x-slot name="trigger">
                         <x-nav-page-link class="cursor-pointer text-black font-medium text-base">Tipe Properti <i

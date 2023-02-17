@@ -1,29 +1,48 @@
 <x-app-page-layout>
     <style>
         .owl-prev {
-            width: 30px;
+            height: 50px;
+            width: 50px;
             align-content: center;
             align-items: center;
             align-self: center;
             background-color: blue !important;
             color: white !important;
-            font-size: 30px !important;
+            font-size: 35px !important;
             position: absolute;
             left: -20px;
             top: 120px;
         }
 
+        .owl-prev span {
+            margin-top: -20px !important;
+            padding: 0 !important;
+            font-size: 50px !important;
+            position: relative !important;
+            display: block !important;
+        }
+
         .owl-next {
-            width: 30px;
+            height: 50px;
+            width: 50px;
             align-content: center;
             align-items: center;
             align-self: center;
             background-color: blue !important;
             color: white !important;
-            font-size: 30px !important;
             position: absolute;
             right: -20px;
             top: 120px;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .owl-next span {
+            margin-top: -20px !important;
+            padding: 0 !important;
+            font-size: 50px !important;
+            position: relative !important;
+            display: block !important;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
@@ -181,33 +200,39 @@
     <div class="max-w-6xl  p-6 sm:p-0 mx-auto mt-10">
         <h1 class="text-2xl font-bold">List Properti</h1>
         <div class="mt-10">
-            <div class="owl-carousel owl-theme w-full h-screen  sm:p-0">
+            <div class="owl-carousel owl-theme w-full h-screen p-10 sm:p-0">
                 @foreach ($properti as $properti)
-                    <div class="item drop-shadow-md bg-white mx-1 my-1 rounded w-full">
-                        <img class="w-full" src="{{ asset('storage/' . $properti->featured_image) }}" alt=""
-                            width="10px" height="10px">
-                        <div class="p-3">
-                            <h1 class="text-xl font-bold">{{ $properti->cicilan }}</h1>
-                            <h2 class="text-base font-bold">{{ $properti->nama_properti }}</h2>
+                    <a href="{{ route('detailproperti', $properti->id) }}">
+                        <div class="item drop-shadow-md bg-white mx-1 my-1 rounded-md w-full mb-20">
+                            <img class="w-full" src="{{ asset('storage/' . $properti->featured_image) }}" alt=""
+                                height="10px" style="height: 240px">
+                            <div class="p-3">
+                                <h1 class="text-xl text-slate-500 font-bold">{{ $properti->cicilan }}</h1>
+                                <h2 class="text-base text-slate-500 font-bold">{{ $properti->nama_properti }}</h2>
 
-                            <p> {{ $properti->lokasis->nama_lokasi }}</p>
-                            <div class="flex mt-5 justify-start text-gray-500  space-x-5">
-                                <div class="">
-                                    <i class="ti ti-bed"></i>
-                                    @foreach (explode(', ', $properti->tipeunit) as $tipeunit)
-                                        {{ $tipeunit['kamar_tidur'] }}
-                                    @endforeach
-                                </div>
 
-                                <div class="">
-                                    LT 90-110 m<sup>2</sup>
-                                </div>
-                                <div class="">
-                                    LT 90-110 m<sup>2</sup>
+                                <p> {{ $properti->lokasis->nama_lokasi }}</p>
+                                <div class="flex mt-5 justify-start text-gray-500  space-x-1">
+                                    <div class="">
+                                        <i class="ti ti-home-check"></i>
+                                        {{ $properti->tipeunit_count }}
+                                    </div> |
+                                    <div class="">
+                                        <i class="ti ti-bed"></i>
+                                        {{ $properti->tipeunit_min_kamar_tidur }}-{{ $properti->tipeunit_max_kamar_tidur }}
+                                    </div> |
+                                    <div class="">
+                                        LT:
+                                        {{ $properti->tipeunit_min_luas_tanah }}-{{ $properti->tipeunit_max_luas_tanah }}m<sup>2</sup>
+                                    </div> |
+                                    <div class="">
+                                        LT:
+                                        {{ $properti->tipeunit_min_luas_bangunan }}-{{ $properti->tipeunit_max_luas_bangunan }}m<sup>2</sup>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
                 <div class="owl-nav">
 
@@ -224,7 +249,7 @@
             nav: true,
             autoWidth: false,
             margin: 20,
-            nav: true,
+            dots: false,
         })
     </script>
 </x-app-page-layout>

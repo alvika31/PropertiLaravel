@@ -28,7 +28,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 // Route::get('/', function () {
 //     return view('pages.home');
 // })->name('home');
-Route::get('/', [PageController::class, 'index']);
+Route::get('/detailproperti/{detailproperti}', [PageController::class, 'show'])->name('detailproperti');
+Route::resource('/', PageController::class)->names([
+    'index' => 'page.index',
+    'store' => 'page.store',
+    'destroy' => 'page.destroy',
+    'edit' => 'page.edit',
+    'update' => 'page.update',
+]);
 
 
 // Route::get('/dashboard', function () {
