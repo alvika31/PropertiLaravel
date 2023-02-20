@@ -7,7 +7,7 @@
             Tambah
             Properti</a>
     </div>
-    <div class="grid grid-cols-4 mt-10 grid-flow-col gap-4">
+    <div class="grid grid-cols-4 lg:grid-cols-4 mt-10 gap-4">
         @foreach ($model as $key => $value)
             <div class="w-full bg-white drop-shadow rounded-md">
                 <a href="{{ route('properti.show', $value->id) }}">
@@ -16,6 +16,7 @@
                         <h1 class="text-lg font-medium text-gray-600">{{ $value->nama_properti }}</h1>
                         <h1 class="text-sm text-gray-600">Developer: {{ $value->nama_developer }}</h1>
                         <h1 class="text-sm text-gray-600">Jumlah Tipe Unit: {{ $value->tipeunit_count }}</h1>
+                        <h1 class="text-sm text-gray-600">Jumlah Tipe Unit: {{ $value->lokasis->nama_lokasi }}</h1>
                         <div class="flex mt-5 gap-1">
                             <a href="{{ route('properti.show', $value->id) }}"
                                 class="p-2 rounded-md bg-blue-500 text-white"><i class="ti ti-id"></i></a>

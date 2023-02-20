@@ -17,6 +17,31 @@
         }
     </style>
 
+    @php
+        function nice_number($n)
+        {
+            // first strip any formatting;
+            $n = 0 + str_replace(',', '', $n);
+        
+            // is this a number?
+            if (!is_numeric($n)) {
+                return false;
+            }
+        
+            // now filter it;
+            if ($n > 1000000000000) {
+                return round($n / 1000000000000, 2) . ' Triliun';
+            } elseif ($n > 1000000000) {
+                return round($n / 1000000000, 2) . ' Milyar';
+            } elseif ($n > 1000000) {
+                return round($n / 1000000, 2) . ' Juta';
+            } elseif ($n > 1000) {
+                return round($n / 1000, 2) . ' Ribu';
+            }
+        
+            return number_format($n);
+        }
+    @endphp
 
     <div class="w-full">
         <img class="w-full" src="{{ asset('storage/' . $model->featured_image) }}" alt="" srcset="">
@@ -47,7 +72,10 @@
                 <div class="p-3">
                     <h1 class="text-lg font-medium text-gray-600">{{ $tipeunit->nama_tipe }}</h1>
                     <p class="text-sm">Harga Mulai:</p>
-                    <h1 class="text-xl font-medium text-gray-600" id="harga">Rp. {{ $tipeunit->harga }}</h1>
+
+                    <h1 class="text-xl font-medium text-gray-600 harga" id="harga">Rp.
+                        <?php $ini = $tipeunit->harga; ?>
+                        <?= nice_number($ini) ?></h1>
                     <div class="flex justify-items-center gap-4">
                         <div class="flex items-center gap-1">
                             <i class="ti ti-bed"></i>{{ $tipeunit->kamar_tidur }}KT
@@ -56,7 +84,7 @@
                             <i class="ti ti-home-up"></i>LT:{{ $tipeunit->luas_tanah }}m<sup>2</sup>
                         </div>
                         <div class="flex items-center gap-1">
-                            <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_tanah }}m<sup>2</sup>
+                            <i class="ti ti-home-move"></i>LB:{{ $tipeunit->luas_bangunan }}m<sup>2</sup>
                         </div>
                     </div>
                 </div>
@@ -85,6 +113,37 @@
             autoWidth: true,
             margin: 10,
         });
+
+        // function test(labelValue) {
+        //     const sign = Math.sign(Number(labelValue));
+        //     // Nine Zeroes for Billions
+        //     return Math.abs(Number(labelValue)) >= 1.0e9 ?
+        //         "Rp. " + sign * (Math.abs(Number(labelValue)) / 1.0e9) + " Milyar" : // Six Zeroes for Millions
+        //         Math.abs(Number(labelValue)) >= 1.0e6 ?
+        //         "Rp. " + sign * (Math.abs(Number(labelValue)) / 1.0e6) + " Juta" : // Three Zeroes for Thousands
+        //         Math.abs(Number(labelValue)) >= 1.0e3 ?
+        //         "Rp. " + sign * (Math.abs(Number(labelValue)) / 1.0e3) + " Ribu" :
+        //         Math.abs(Number(labelValue));
+        // }
+        // <?php foreach ($model->tipeunit as $tipeunit){ ?>
+
+
+        // // document.getElementById('harga').innerHTML = test(<?= $tipeunit->harga ?>);
+        // // var abc = test(<?= $tipeunit->harga ?>)
+        // console.log(test(<?= $tipeunit->harga ?>));
+
+        // <?php }?>
+
+        // const nilai = <?php echo json_encode($model->tipeunit); ?>;
+        // let text = '';
+        // for (let i = 0; i < nilai.length; i++) {
+        //     text += nilai[i];
+        //     console.log(text);
+        // }
+        // // let cekHarga = nilai[0]['harga'];
+        // // document.getElementById('harga').innerHTML = test(nilai[0]['harga']);
+
+        // // console.log(nilai['harga']);
     </script>
 
 

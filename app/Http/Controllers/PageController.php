@@ -19,19 +19,7 @@ class PageController extends Controller
     {
         $lokasi = Lokasi::all();
         $properti = Properti::withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
-        // foreach ($properti as $propertis) {
-        //     $id[] = $propertis->id;
-        // }
 
-        // $fix = implode(', ', $id);
-
-        // $maxKamar = TipeUnit::where('property_id', $fix)->max('kamar_tidur');
-        // $minKamar = TipeUnit::where('property_id', $fix)->min('kamar_tidur');
-
-        // foreach ($maxKamar as $maxKamars) {
-
-        //     dd($maxKamars);
-        // }
 
         return view('pages.home', compact('lokasi', 'properti'));
     }
@@ -70,6 +58,18 @@ class PageController extends Controller
         $maxharga = TipeUnit::where('property_id', $id)->max('harga');
         $minharga = TipeUnit::where('property_id', $id)->min('harga');
         return view('pages.detailproperti', compact('properti', 'maxharga', 'minharga'));
+    }
+
+    public function lokasi_filter($id)
+    {
+        $cek = Properti::where('lokasi_id', $id)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+
+        // foreach ($cek as $data) {
+
+        // dd($cek);
+        // }
+        $lokasi = Lokasi::findOrFail($id);
+        return view('pages.lokasi', compact('cek', 'lokasi'));
     }
 
     /**

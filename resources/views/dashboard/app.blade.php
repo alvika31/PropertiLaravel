@@ -15,6 +15,7 @@
 <body>
 
 
+
     <div class="min-h-screen flex">
         @include('dashboard.sidebar')
         <div class="w-3/4 mt-10 ml-10 sm:ml-72 p-6">

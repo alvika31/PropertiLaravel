@@ -34,7 +34,8 @@
                     <div class="flex flex-col">
                         <x-slot name="content">
                             @foreach ($model as $menu)
-                                <x-dropdown-link class="text-black font-medium text-base">
+                                <x-dropdown-link class="text-black font-medium text-base"
+                                    href="{{ route('lokasi_filter', $menu->id) }}">
                                     <i class="ti ti-map-pin"></i>
                                     {{ $menu->nama_lokasi }}
                                 </x-dropdown-link>

@@ -62,6 +62,31 @@
         }
     </style>
 
+    @php
+        function nice_number($n)
+        {
+            // first strip any formatting;
+            $n = 0 + str_replace(',', '', $n);
+        
+            // is this a number?
+            if (!is_numeric($n)) {
+                return false;
+            }
+        
+            // now filter it;
+            if ($n > 1000000000000) {
+                return round($n / 1000000000000, 2) . ' Triliun';
+            } elseif ($n > 1000000000) {
+                return round($n / 1000000000, 2) . ' Milyar';
+            } elseif ($n > 1000000) {
+                return round($n / 1000000, 2) . ' Juta';
+            } elseif ($n > 1000) {
+                return round($n / 1000, 2) . ' Ribu';
+            }
+        
+            return number_format($n);
+        }
+    @endphp
     <div class="">
         <div class="owl-carousel owl-theme">
             @foreach ($properti->gallery as $gambar)
@@ -78,7 +103,11 @@
     <div class="max-w-6xl p-6 sm:p-0 mx-auto mt-10 mb-10">
         <p class="text-slate-400">Nama Developer: {{ $properti->nama_developer }}</p>
         <h1 class="font-bold text-slate-500">{{ $properti->nama_properti }}</h1>
-        <h1 class="text-2xl font-bold text-slate-500">Rp. {{ $minharga }} Milyar - {{ $maxharga }} Milyar</h1>
+
+
+        <h1 class="text-2xl font-bold text-slate-500">Rp.
+
+            <?= nice_number($minharga) ?> - <?= nice_number($maxharga) ?></h1>
         <p class="text-black text-slate-600">Cicilan Mulai Dari: {{ $properti->cicilan }}</p>
         <h1 class="text-lg font-bold text-slate-500 mt-5 mb-2">Tipe Unit:</h1>
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -88,7 +117,9 @@
                     <div class="p-3">
                         <h1 class="text-lg font-medium text-gray-600">{{ $tipeunit->nama_tipe }}</h1>
                         <p class="text-sm">Harga Mulai:</p>
-                        <h1 class="text-xl font-medium text-gray-600">Rp. {{ $tipeunit->harga }} M</h1>
+                        <h1 class="text-xl font-medium text-gray-600">Rp.
+                            <?php $hargaConvert = $tipeunit->harga; ?>
+                            <?= nice_number($hargaConvert) ?></h1>
                         <div class="flex flex-col lg:flex-row justify-items-center gap-1">
                             <div class="flex items-center gap-1">
                                 <i class="ti ti-bed"></i>{{ $tipeunit->kamar_tidur }}KT

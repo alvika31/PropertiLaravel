@@ -52,6 +52,7 @@
     <div class="w-full bg-fixed bg-center h-48 sm:h-96 flex bg-no-repeat bg-cover"
         style="background-image: url('{{ asset('img/hero.jpg') }}')">
 
+
         <div class="m-auto text-center w-full">
             <form action="" class="m-o p-0">
                 <input type="text" class="border-0 rounded w-4/5 sm:w-1/2" placeholder="Mau Cari Property Dimana?"
@@ -70,6 +71,7 @@
                     </x-slot>
                     <x-slot name="heading">
                         Jaminan Harga Terbaik
+
                     </x-slot>
                     <x-slot name="deskripsi">
                         Dapatkan harga terbaik hanya di CariProperti
