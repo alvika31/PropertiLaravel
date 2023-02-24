@@ -17,6 +17,8 @@
 
     {{ $slot }}
 
+    @include('pages.footer')
+
 </body>
 
 </html>

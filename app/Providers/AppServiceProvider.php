@@ -39,5 +39,13 @@ class AppServiceProvider extends ServiceProvider
             $properti->gallery()->delete();
             $properti->tipeunit()->delete();
         });
+
+        view()->composer(
+            'pages.footer',
+            function ($view) {
+                $view->with('model', Lokasi::all());
+                $view->with('tipe', TipeProperti::all());
+            }
+        );
     }
 }

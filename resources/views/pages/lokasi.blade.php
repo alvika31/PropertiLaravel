@@ -45,7 +45,7 @@
                 <h1 class="font-medium">Oppss.. Properti Belum Tersedia</h1>
             </div>
         @endif
-        <div class="grid grid-cols-3 lg:grid-cols-3 mt-10 gap-4">
+        <div class="grid grid-cols-3 lg:grid-cols-3 mt-10 gap-4 mb-10">
 
             @foreach ($cek as $key => $value)
                 <div class="w-full bg-white drop-shadow rounded-md">
