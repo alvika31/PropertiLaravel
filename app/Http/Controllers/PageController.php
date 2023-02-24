@@ -6,6 +6,7 @@ use App\Models\Lokasi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Properti;
+use App\Models\TipeProperti;
 use App\Models\TipeUnit;
 
 class PageController extends Controller
@@ -51,25 +52,24 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $properti = Properti::findOrFail($id);
+        $properti = Properti::where('slug', $slug)->first();
 
-        $maxharga = TipeUnit::where('property_id', $id)->max('harga');
-        $minharga = TipeUnit::where('property_id', $id)->min('harga');
+        $maxharga = TipeUnit::whereRelation('propertis', 'slug', $slug)->max('harga');
+        $minharga = TipeUnit::whereRelation('propertis', 'slug', $slug)->min('harga');
         return view('pages.detailproperti', compact('properti', 'maxharga', 'minharga'));
     }
 
-    public function lokasi_filter($id)
+    public function lokasi_filter($slug)
     {
-        $cek = Properti::where('lokasi_id', $id)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+        $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
 
-        // foreach ($cek as $data) {
+        $lokasi = Lokasi::where('slug', $slug)->first();
 
-        // dd($cek);
-        // }
-        $lokasi = Lokasi::findOrFail($id);
-        return view('pages.lokasi', compact('cek', 'lokasi'));
+        $tipeProperti = TipeProperti::all();
+
+        return view('pages.lokasi', compact('cek', 'lokasi', 'tipeProperti'));
     }
 
     /**

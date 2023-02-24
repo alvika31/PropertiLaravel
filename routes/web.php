@@ -28,8 +28,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 // Route::get('/', function () {
 //     return view('pages.home');
 // })->name('home');
-Route::get('/detailproperti/{detailproperti}', [PageController::class, 'show'])->name('detailproperti');
-Route::get('/lokasi/{lokasi}', [PageController::class, 'lokasi_filter'])->name('lokasi_filter');
+Route::get('/properti/{detailproperti}', [PageController::class, 'show'])->name('detailproperti');
+Route::get('/lokasi/{slug}', [PageController::class, 'lokasi_filter'])->name('lokasi_filter');
 Route::resource('/', PageController::class)->names([
     'index' => 'page.index',
     'store' => 'page.store',

@@ -204,7 +204,7 @@
         <div class="mt-10">
             <div class="owl-carousel owl-theme w-full h-screen p-10 sm:p-0">
                 @foreach ($properti as $properti)
-                    <a href="{{ route('detailproperti', $properti->id) }}">
+                    <a href="{{ route('detailproperti', $properti->slug) }}">
                         <div class="item drop-shadow-md bg-white mx-1 my-1 rounded-md w-full mb-20">
                             <img class="w-full" src="{{ asset('storage/' . $properti->featured_image) }}" alt=""
                                 height="10px" style="height: 240px">

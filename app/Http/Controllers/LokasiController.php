@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Alert;
 use App\Models\Lokasi;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -51,6 +52,7 @@ class LokasiController extends Controller
 
         $lokasi = new Lokasi;
         $lokasi->nama_lokasi = $request->nama_lokasi;
+        $lokasi->slug = Str::of($request->nama_lokasi)->slug('-');
         $lokasi->save();
         return redirect(route('lokasi.index'))->with('success', 'Lokasi Berhasil ditambahkan');
     }

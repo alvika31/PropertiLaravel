@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Lokasi;
 use App\Models\Properti;
+use App\Models\TipeUnit;
+use Illuminate\Support\Str;
 use App\Models\TipeProperti;
 use Illuminate\Http\Request;
 use Illuminate\Support\File;
 use App\Models\GalleryProperti;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Models\TipeUnit;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -65,6 +66,7 @@ class PropertiController extends Controller
 
         $properti = new Properti;
         $properti->nama_properti = $request->nama_properti;
+        $properti->slug = Str::of($request->nama_properti)->slug('-');
         $properti->nama_developer = $request->nama_developer;
         $properti->cicilan = $request->cicilan;
         $properti->featured_image = $image_path;
@@ -73,6 +75,7 @@ class PropertiController extends Controller
         $properti->deskripsi_properti = $request->deskripsi_properti;
         $properti->fasilitas = $request->fasilitas;
         $properti->deskripsi_lokasi = $request->deskripsi_lokasi;
+
         $properti->save();
 
         foreach ($request->file('gallery') as $gallerys) {

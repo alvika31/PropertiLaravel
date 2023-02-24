@@ -8,6 +8,36 @@
 
         </div>
     </div>
+    <div class="max-w-6xl flex gap-x-3 p-6 sm:p-0 mx-auto mt-10">
+        <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+            <i class="ti ti-building"></i>
+            <input type="text" class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0"
+                placeholder="Cari Cluster">
+        </div>
+        <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+            <i class="ti ti-building-skyscraper"></i>
+            <select name="" id=""
+                class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
+                <option class="w-full">Tipe Properti</option>
+                @foreach ($tipeProperti as $tipe)
+                    <option class="w-full">{{ $tipe->nama_tipe }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+            <i class="ti ti-coin "></i>
+            <select name="" id=""
+                class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
+                <option>Pilih Harga</option>
+                <option>
+                    <1M </option>
+                <option>1-2M</option>
+                <option>2-3M</option>
+                <option>3-5M</option>
+                <option>>5M</option>
+            </select>
+        </div>
+    </div>
     <div class="max-w-6xl  p-6 sm:p-0 mx-auto mt-10">
         @if ($cek->isEmpty())
             <div class="bg-red-200 p-5 flex items-center gap-x-3 rounded">
@@ -19,7 +49,7 @@
 
             @foreach ($cek as $key => $value)
                 <div class="w-full bg-white drop-shadow rounded-md">
-                    <a href="{{ route('detailproperti', $value->id) }}">
+                    <a href="{{ route('detailproperti', $value->slug) }}">
                         <img class="w-full" src="{{ asset('storage/' . $value->featured_image) }}" alt=""
                             srcset="" height="10px" style="height: 240px">
                         <div class="p-3">
