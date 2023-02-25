@@ -67,10 +67,14 @@ class PageController extends Controller
         $inputtipeproperti = $request->tipeproperti;
         $inputharga = $request->harga;
 
+
+
         $cek = Properti::query();
 
         if ($request->tipeproperti != '') {
-            $cek = Properti::whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'slug', $request->tipeproperti)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+            $cek = $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+        } else {
+            $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
         }
         // $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
 
