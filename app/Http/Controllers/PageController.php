@@ -52,8 +52,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($slug, Request $request)
     {
+
         $properti = Properti::where('slug', $slug)->first();
 
         $maxharga = TipeUnit::whereRelation('propertis', 'slug', $slug)->max('harga');
@@ -61,15 +62,25 @@ class PageController extends Controller
         return view('pages.detailproperti', compact('properti', 'maxharga', 'minharga'));
     }
 
-    public function lokasi_filter($slug)
+    public function lokasi_filter($slug, Request $request)
     {
-        $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+        $inputtipeproperti = $request->tipeproperti;
+        $inputharga = $request->harga;
+
+        $cek = Properti::query();
+
+        if ($request->tipeproperti != '') {
+            $cek = Properti::whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'slug', $request->tipeproperti)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+        }
+        // $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
 
         $lokasi = Lokasi::where('slug', $slug)->first();
 
         $tipeProperti = TipeProperti::all();
 
-        return view('pages.lokasi', compact('cek', 'lokasi', 'tipeProperti'));
+
+
+        return view('pages.lokasi', compact('cek', 'lokasi', 'tipeProperti', 'inputtipeproperti', 'inputharga'));
     }
 
     /**

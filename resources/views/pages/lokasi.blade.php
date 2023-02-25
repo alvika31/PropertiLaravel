@@ -8,43 +8,50 @@
 
         </div>
     </div>
-    <div class="max-w-6xl flex gap-x-3 p-6 sm:p-0 mx-auto mt-10">
-        <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
-            <i class="ti ti-building"></i>
-            <input type="text" class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0"
-                placeholder="Cari Cluster">
+    <form action="{{ route('lokasi_filter', $lokasi->slug) }}">
+        <div class="max-w-6xl flex gap-x-3 p-6 sm:p-0 mx-auto mt-10">
+            <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+                <i class="ti ti-building"></i>
+                <input type="text" class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0"
+                    placeholder="Cari Cluster">
+            </div>
+            <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+                <i class="ti ti-building-skyscraper"></i>
+                <select name="tipeproperti" onchange="this.form.submit()" id=""
+                    class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
+                    <option class="w-full" value="">Tipe Properti</option>
+                    @foreach ($tipeProperti as $tipe)
+                        <option value="{{ $tipe->slug }}" class="w-full"
+                            {{ $inputtipeproperti == $tipe->slug ? 'selected' : '' }}>
+                            {{ $tipe->nama_tipe }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+                <i class="ti ti-coin "></i>
+                <select name="harga" id="" onchange="this.form.submit()"
+                    class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
+                    <option>Pilih Harga</option>
+                    @if ($inputharga != '')
+                        <option value="<1M" {{ $inputharga == '<1M' ? 'selected' : '' }}>
+                            <1M </option>
+                        <option value="1-2M" {{ $inputharga == '1-2M' ? 'selected' : '' }}>1-2M</option>
+                        <option value="2-3M" {{ $inputharga == '2-3M' ? 'selected' : '' }}>2-3M</option>
+                        <option value="3-5M" {{ $inputharga == '3-5M' ? 'selected' : '' }}>3-5M</option>
+                        <option value=">5M"> {{ $inputharga == '>5M' ? 'selected' : '' }}>5M</option>
+                    @endif
+                </select>
+            </div>
         </div>
-        <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
-            <i class="ti ti-building-skyscraper"></i>
-            <select name="" id=""
-                class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
-                <option class="w-full">Tipe Properti</option>
-                @foreach ($tipeProperti as $tipe)
-                    <option class="w-full">{{ $tipe->nama_tipe }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
-            <i class="ti ti-coin "></i>
-            <select name="" id=""
-                class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
-                <option>Pilih Harga</option>
-                <option>
-                    <1M </option>
-                <option>1-2M</option>
-                <option>2-3M</option>
-                <option>3-5M</option>
-                <option>>5M</option>
-            </select>
-        </div>
-    </div>
+    </form>
     <div class="max-w-6xl  p-6 sm:p-0 mx-auto mt-10">
-        @if ($cek->isEmpty())
+        {{-- @if ($cek->isEmpty())
             <div class="bg-red-200 p-5 flex items-center gap-x-3 rounded">
                 <i class="ti ti-zoom-exclamation text-2xl"></i>
                 <h1 class="font-medium">Oppss.. Properti Belum Tersedia</h1>
             </div>
-        @endif
+        @endif --}}
         <div class="grid grid-cols-3 lg:grid-cols-3 mt-10 gap-4 mb-10">
 
             @foreach ($cek as $key => $value)

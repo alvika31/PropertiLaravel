@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lokasi;
+use Illuminate\Support\Str;
 use App\Models\TipeProperti;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -50,6 +51,7 @@ class TipePropertiController extends Controller
 
         $tipeproperti = new TipeProperti;
         $tipeproperti->nama_tipe = $request->nama_tipe;
+        $tipeproperti->slug = Str::of($request->nama_tipe)->slug('-');
         $tipeproperti->save();
         return redirect(route('tipe-properti.index'))->with('success', 'Lokasi Berhasil ditambahkan');
     }
