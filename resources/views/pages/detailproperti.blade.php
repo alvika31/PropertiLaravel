@@ -107,7 +107,15 @@
 
         <h1 class="text-2xl font-bold text-slate-500">Rp.
 
-            <?= nice_number($minharga) ?> - <?= nice_number($maxharga) ?></h1>
+            @if ($minharga == '' || $maxharga == '')
+                Harga Belum Tersedia
+            @else
+                <?= nice_number($minharga) ?> - <?= nice_number($maxharga) ?>
+            @endif
+
+
+        </h1>
+
         <p class="text-black text-slate-600">Cicilan Mulai Dari: {{ $properti->cicilan }}</p>
         <h1 class="text-lg font-bold text-slate-500 mt-5 mb-2">Tipe Unit:</h1>
         <div class="grid grid-cols-2 gap-4 lg:grid-cols-4">
