@@ -24,39 +24,23 @@
             return number_format($n);
         }
     @endphp
-
     <div class="w-full bg-fixed bg-center h-48 sm:h-96 flex bg-no-repeat bg-cover"
         style="background-image: url('{{ asset('img/hero.jpg') }}')">
         <div class="m-auto text-center w-full">
 
-            <h1 class="text-white font-bold text-5xl">{{ $lokasi->nama_lokasi }}</h1>
+            <h1 class="text-white font-bold text-5xl">{{ $tipeproperti->nama_tipe }}</h1>
 
         </div>
     </div>
-    <form action="{{ route('lokasi_filter', $lokasi->slug) }}" method="GET">
-        <div class="max-w-6xl flex gap-x-3 p-6 sm:p-0 mx-auto mt-10">
+    <form action="{{ route('lokasi_filter', $tipeproperti->nama_tipe) }}" method="GET">
+        <div class="max-w-6xl flex justify-center gap-x-3 p-6 sm:p-0 mx-auto mt-10">
             <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
                 <i class="ti ti-building"></i>
                 <input type="text" name="cari" value="{{ $inputcari }}"
                     class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0"
                     placeholder="Cari Cluster">
             </div>
-            <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
-                <i class="ti ti-building-skyscraper"></i>
-                <select name="tipeproperti" onchange="this.form.submit()" id=""
-                    class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
 
-                    <option class="w-full" value="" {{ $inputtipeproperti == '' ? 'selected' : '' }}>Tipe Properti
-                    </option>
-
-                    @foreach ($tipeProperti as $tipe)
-                        <option value="{{ $tipe->nama_tipe }}" class="w-full"
-                            {{ $inputtipeproperti == $tipe->nama_tipe ? 'selected' : '' }}>
-                            {{ $tipe->nama_tipe }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
             <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
                 <i class="ti ti-coin "></i>
                 <select name="harga" id="" onchange="this.form.submit()"
@@ -77,6 +61,7 @@
             </div>
         </div>
     </form>
+
     <div class="max-w-6xl  p-6 sm:p-0 mx-auto mt-10 mb-10">
         {{-- @if ($cek->isEmpty())
             <div class="bg-red-200 p-5 flex items-center gap-x-3 rounded">
@@ -134,5 +119,4 @@
             </div>
         @endif
     </div>
-
 </x-app-page-layout>
