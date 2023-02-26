@@ -16,7 +16,11 @@
                     <div class="flex flex-col">
                         <x-slot name="content">
                             @foreach ($tipe as $tipes)
-                                <x-dropdown-link class="text-black font-medium text-base"><i
+                                @php
+                                    $low = Str::of($tipes->nama_tipe)->lcfirst();
+                                @endphp
+                                <x-dropdown-link class="text-black font-medium text-base"
+                                    href="{{ route('tipeproperti_filter', $tipes->slug) }}"><i
                                         class="ti ti-home-2 mr-2"></i>
                                     {{ $tipes->nama_tipe }}
                                 </x-dropdown-link>
@@ -24,11 +28,41 @@
                         </x-slot>
                     </div>
                 </x-dropdown>
-                <x-nav-page-link class="text-black font-medium text-base">Harga</x-nav-page-link>
                 <x-dropdown>
                     <x-slot name="trigger">
-                        <x-nav-page-link class="cursor-pointer text-black font-medium text-base">Lokasi <i
-                                class="ti ti-chevron-down"></i></x-nav-page-link>
+                        <x-nav-page-link class="cursor-pointer text-black font-medium text-base">Harga</x-nav-page-link>
+                    </x-slot>
+                    <div class="flex flex-col">
+                        <x-slot name="content">
+
+                            <x-dropdown-link class="text-black font-medium text-base"><i
+                                    class="ti ti-premium-rights mr-2"></i>
+                                Di bawah 1 M
+                            </x-dropdown-link>
+                            <x-dropdown-link class="text-black font-medium text-base"><i
+                                    class="ti ti-premium-rights mr-2"></i>
+                                1 M - 2 M
+                            </x-dropdown-link>
+                            <x-dropdown-link class="text-black font-medium text-base"><i
+                                    class="ti ti-premium-rights mr-2"></i>
+                                2 M - 3 M
+                            </x-dropdown-link>
+                            <x-dropdown-link class="text-black font-medium text-base"><i
+                                    class="ti ti-premium-rights mr-2"></i>
+                                3 M - 5 M
+                            </x-dropdown-link>
+                            <x-dropdown-link class="text-black font-medium text-base"><i
+                                    class="ti ti-premium-rights mr-2"></i>
+                                5 M ke atas
+                            </x-dropdown-link>
+
+                        </x-slot>
+                    </div>
+                </x-dropdown>
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        <x-nav-page-link class="cursor-pointer text-black font-medium text-base" :active="request()->routeIs('lokasi_filter')">
+                            Lokasi <i class="ti ti-chevron-down"></i></x-nav-page-link>
                     </x-slot>
 
                     <div class="flex flex-col">

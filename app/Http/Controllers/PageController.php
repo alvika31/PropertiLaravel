@@ -66,17 +66,40 @@ class PageController extends Controller
     {
         $inputtipeproperti = $request->tipeproperti;
         $inputharga = $request->harga;
-
-
-
+        $inputcari = $request->cari;
         $cek = Properti::query();
 
         if ($request->tipeproperti != '') {
-            $cek = $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+            if ($request->harga == '<1M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeunit', 'harga', '<=', 1000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '1-2M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeunit', 'harga', '>=', 1000000000)->whereRelation('tipeunit', 'harga', '<=', 2000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '2-3M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeunit', 'harga', '>=', 2000000000)->whereRelation('tipeunit', 'harga', '<=', 3000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '3-5M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeunit', 'harga', '>=', 3000000000)->whereRelation('tipeunit', 'harga', '<=', 5000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '>5M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->whereRelation('tipeunit', 'harga', '>=', 5000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } else {
+                $cek = $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeproperti', 'nama_tipe', $request->tipeproperti)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            }
+        } elseif ($request->harga != '') {
+            if ($request->harga == '<1M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeunit', 'harga', '<=', 1000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '1-2M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeunit', 'harga', '>=', 1000000000)->whereRelation('tipeunit', 'harga', '<=', 2000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '2-3M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeunit', 'harga', '>=', 2000000000)->whereRelation('tipeunit', 'harga', '<=', 3000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '3-5M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeunit', 'harga', '>=', 3000000000)->whereRelation('tipeunit', 'harga', '<=', 5000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            } elseif ($request->harga == '>5M') {
+                $cek =  $cek->whereRelation('lokasis', 'slug', $slug)->whereRelation('tipeunit', 'harga', '>=', 5000000000)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+            }
+        } elseif ($request->cari != '') {
+            $cek = $cek->where('nama_properti', 'like', "%" . $request->cari . "%")->get();
         } else {
-            $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
+            $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
         }
-        // $cek = Properti::whereRelation('lokasis', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->get();
 
         $lokasi = Lokasi::where('slug', $slug)->first();
 
@@ -84,7 +107,18 @@ class PageController extends Controller
 
 
 
-        return view('pages.lokasi', compact('cek', 'lokasi', 'tipeProperti', 'inputtipeproperti', 'inputharga'));
+        return view('pages.lokasi', compact('cek', 'lokasi', 'tipeProperti', 'inputtipeproperti', 'inputharga', 'inputcari'));
+    }
+
+    public function tipeproperti_filter($slug, Request $request)
+    {
+        $inputtipeproperti = $request->tipeproperti;
+        $inputharga = $request->harga;
+        $inputcari = $request->cari;
+        $cek = Properti::whereRelation('tipeproperti', 'slug', $slug)->withCount('tipeunit')->withMin('tipeunit', 'kamar_tidur')->withMax('tipeunit', 'kamar_tidur')->withMin('tipeunit', 'luas_tanah')->withMax('tipeunit', 'luas_tanah')->withMin('tipeunit', 'luas_bangunan')->withMax('tipeunit', 'luas_bangunan')->withMin('tipeunit', 'harga')->withMax('tipeunit', 'harga')->get();
+        $tipeproperti = TipeProperti::where('slug', $slug)->first();
+
+        return view('pages.tipeproperti', compact('tipeproperti', 'cek', 'inputcari', 'inputharga'));
     }
 
     /**
