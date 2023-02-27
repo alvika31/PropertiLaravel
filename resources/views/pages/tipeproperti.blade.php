@@ -28,20 +28,22 @@
         style="background-image: url('{{ asset('img/hero.jpg') }}')">
         <div class="m-auto text-center w-full">
 
-            <h1 class="text-white font-bold text-5xl">{{ $tipeproperti->nama_tipe }}</h1>
+            <h1 class="text-white font-bold text-2xl md:text-5xl lg:text-5xl">Tipe Properti:
+                {{ $tipeproperti->nama_tipe }}</h1>
 
         </div>
     </div>
-    <form action="{{ route('lokasi_filter', $tipeproperti->nama_tipe) }}" method="GET">
-        <div class="max-w-6xl flex justify-center gap-x-3 p-6 sm:p-0 mx-auto mt-10">
-            <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+    <form action="{{ route('tipeproperti_filter', $tipeproperti->nama_tipe) }}" method="GET">
+        <div class="max-w-6xl flex flex-col md:flex-row lg:flex-row justify-center gap-x-3 p-5 sm:p-0 mx-auto mt-10">
+            <div class="w-full md:w-1/3 lg:w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
                 <i class="ti ti-building"></i>
                 <input type="text" name="cari" value="{{ $inputcari }}"
                     class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0"
                     placeholder="Cari Cluster">
             </div>
 
-            <div class="w-1/3 flex items-center ring-gray-300 ring-1 rounded px-3">
+            <div
+                class="w-full md:w-1/3 lg:w-1/3 flex items-center my-4 md:my-0 lg:my-0 ring-gray-300 ring-1 rounded px-3">
                 <i class="ti ti-coin "></i>
                 <select name="harga" id="" onchange="this.form.submit()"
                     class="w-full rounded border-none focus:outline-none focus:border-none focus:ring-0">
@@ -62,14 +64,14 @@
         </div>
     </form>
 
-    <div class="max-w-6xl  p-6 sm:p-0 mx-auto mt-10 mb-10">
+    <div class="max-w-6xl p-6 sm:p-0 mx-auto mt-0 lg:mt-10 md:mt-10 mb-10">
         {{-- @if ($cek->isEmpty())
             <div class="bg-red-200 p-5 flex items-center gap-x-3 rounded">
                 <i class="ti ti-zoom-exclamation text-2xl"></i>
                 <h1 class="font-medium">Oppss.. Properti Belum Tersedia</h1>
             </div>
         @endif --}}
-        <div class="grid grid-cols-3 lg:grid-cols-3 mt-10 gap-4">
+        <div class="grid grid-cols-1 lg:grid-cols-3 mt-10 gap-4">
 
             @foreach ($cek as $key => $value)
                 <div class="w-full bg-white drop-shadow rounded-xl">

@@ -54,9 +54,9 @@
 
 
         <div class="m-auto text-center w-full">
-            <form action="" class="m-o p-0">
-                <input type="text" class="border-0 rounded w-4/5 sm:w-1/2" placeholder="Mau Cari Property Dimana?"
-                    name="" id="">
+            <form action="{{ route('search') }}" class="m-o p-0">
+                <input type="text" name="cari" class="border-0 rounded w-4/5 sm:w-1/2"
+                    placeholder="Mau Cari Property Dimana?" name="" id="">
                 <button class="p-0 rounded m-0 bg-black text-white h-10 w-10"><i class="ti ti-search"></i></button>
             </form>
         </div>
@@ -202,7 +202,7 @@
     <div class="max-w-6xl  p-6 sm:p-0 mx-auto mt-10">
         <h1 class="text-2xl font-bold">List Properti</h1>
         <div class="mt-10">
-            <div class="owl-carousel owl-theme w-full h-screen p-10 sm:p-0">
+            <div class="owl-carousel owl-theme w-full p-0 md:p-10 lg:p-10 sm:p-0">
                 @foreach ($properti as $properti)
                     <a href="{{ route('detailproperti', $properti->slug) }}">
                         <div class="item drop-shadow-md bg-white mx-1 my-1 rounded-md w-full mb-20">
@@ -248,10 +248,27 @@
         $('.owl-carousel').owlCarousel({
             items: 3,
             loop: false,
+            center: false,
             nav: true,
-            autoWidth: false,
+
             margin: 20,
             dots: false,
+            responsive: {
+                0: {
+                    items: 1,
+                    nav: true
+
+                },
+                600: {
+                    items: 3,
+                    nav: false
+                },
+                1000: {
+                    items: 3,
+                    nav: true,
+                    loop: false
+                }
+            }
         })
     </script>
 </x-app-page-layout>
